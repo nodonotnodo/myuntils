@@ -1,0 +1,19 @@
+package com.nodonotnodo.id.impl;
+
+import com.nodonotnodo.id.IdGenerator;
+
+import java.util.UUID;
+
+/**
+ * 简化的UUID，去掉了横线
+ * <p>
+ * Author: nodonotnodo
+ * Created: 2018/10/17
+ */
+public class Uuid implements IdGenerator {
+    
+    @Override
+    public String id() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+}
