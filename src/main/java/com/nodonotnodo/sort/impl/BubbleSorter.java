@@ -52,26 +52,5 @@ public class BubbleSorter implements Sorter {
         }
     }
 
-//    public static void print(Element[] elements){
-//        for(Element v:elements){
-//            System.out.println("key:"+v.getKey()+"\tdata:"+v.getData());
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        Element[] test = new Element[5];
-//        test[0] = new Element(0,23);
-//        test[1] = new Element(3,22);
-//        test[2] = new Element(2,1);
-//        test[3] = new Element(6,34);
-//        test[4] = new Element(4,2);
-//        print(test);
-//        BubbleSorter b = new BubbleSorter();
-//        b.sort(test);
-//        System.out.println("排序后：");
-//        print(test);
-//
-//    }
-
 
 }
