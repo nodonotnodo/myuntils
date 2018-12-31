@@ -3,6 +3,7 @@ package com.nodonotnodo.util;
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -30,7 +31,9 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> boolean isEmpty(final T... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -44,7 +47,76 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(Object array) {
-        //TODO
+        if(array == null ){
+            return true;
+        }
+
+        //对象是一个数组
+        if(array.getClass().isArray()){
+
+            //对象是一个byte(1个字节)型数组
+            if(array instanceof byte[]){
+                if(((byte[]) array).length ==0){
+                    return true;
+                }
+            }
+
+            //对象是一个short(2个字节)型数据
+            if(array instanceof short[]){
+                if(((short[]) array).length == 0){
+                    return true;
+                }
+            }
+
+            //对象是一个int(4个字节)型数组
+            if(array instanceof int[]){
+                if(((int[]) array).length == 0){
+                    return true;
+                }
+            }
+
+            //对象是一个long(8个字节)型数组
+            if(array instanceof long[]){
+                if(((long[]) array).length == 0){
+                    return true;
+                }
+            }
+            //对象是一个char(2个字节)型数组
+            if(array instanceof char[]) {
+                if(((char[]) array).length == 0){
+                    return true;
+                }
+            }
+
+
+            //对象是一个float(4个字节)型数组
+            if(array instanceof float[]){
+                if(((float[]) array).length == 0){
+                    return true;
+                }
+            }
+
+            //对象是一个double(8个字节)型数组
+            if(array instanceof double[]){
+                if(((double[]) array).length == 0){
+                    return true;
+                }
+            }
+
+            //对象是一个boolean(1个比特位)型数据
+            if(array instanceof boolean[]){
+                if(((boolean[]) array).length == 0){
+                    return true;
+                }
+            }
+
+            //对象是一个String型数组
+            if(array instanceof String[]){
+                if(((String[]) array).length == 0){
+                    return true;
+                }
+            }
+        }
         return false;
     }
     
@@ -55,7 +127,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final long... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -66,7 +140,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final int... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -77,7 +153,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final short... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -88,7 +166,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final char... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -99,7 +179,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final byte... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -110,7 +192,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final double... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -121,7 +205,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final float... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -132,7 +218,9 @@ public final class ArrayUtil {
      * @return 是否为空
      */
     public static boolean isEmpty(final boolean... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return true;
+        }
         return false;
     }
     
@@ -146,8 +234,10 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> boolean isNotEmpty(final T... array) {
-        //TODO
-        return false;
+        if(array == null || array.length == 0){
+            return false;
+        }
+        return true;
     }
     
     /**
@@ -160,8 +250,77 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final Object array) {
-        //TODO
-        return false;
+        if(array == null ){
+            return false;
+        }
+
+        //对象是一个数组
+        if(array.getClass().isArray()){
+
+            //对象是一个byte(1个字节)型数组
+            if(array instanceof byte[]){
+                if(((byte[]) array).length ==0){
+                    return false;
+                }
+            }
+
+            //对象是一个short(2个字节)型数据
+            if(array instanceof short[]){
+                if(((short[]) array).length == 0){
+                    return false;
+                }
+            }
+
+            //对象是一个int(4个字节)型数组
+            if(array instanceof int[]){
+                if(((int[]) array).length == 0){
+                    return false;
+                }
+            }
+
+            //对象是一个long(8个字节)型数组
+            if(array instanceof long[]){
+                if(((long[]) array).length == 0){
+                    return false;
+                }
+            }
+            //对象是一个char(2个字节)型数组
+            if(array instanceof char[]) {
+                if(((char[]) array).length == 0){
+                    return false;
+                }
+            }
+
+
+            //对象是一个float(4个字节)型数组
+            if(array instanceof float[]){
+                if(((float[]) array).length == 0){
+                    return false;
+                }
+            }
+
+            //对象是一个double(8个字节)型数组
+            if(array instanceof double[]){
+                if(((double[]) array).length == 0){
+                    return false;
+                }
+            }
+
+            //对象是一个boolean(1个比特位)型数据
+            if(array instanceof boolean[]){
+                if(((boolean[]) array).length == 0){
+                    return false;
+                }
+            }
+
+            //对象是一个String型数组
+            if(array instanceof String[]){
+                if(((String[]) array).length == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     /**
@@ -171,8 +330,10 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final long... array) {
-        //TODO
-        return false;
+        if(array == null || array.length == 0){
+            return false;
+        }
+        return true;
     }
     
     /**
@@ -182,7 +343,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final int... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -193,7 +356,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final short... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -204,7 +369,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final char... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -215,7 +382,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final byte... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -226,7 +395,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final double... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -237,7 +408,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final float... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -248,7 +421,9 @@ public final class ArrayUtil {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(final boolean... array) {
-        //TODO
+        if(array == null || array.length == 0){
+            return false;
+        }
         return false;
     }
     
@@ -261,7 +436,14 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> boolean hasNull(T... array) {
-        //TODO
+        if(array == null){
+            return false;
+        }
+        for(int i = 0; i<array.length; i++){
+            if(array[i] == null){
+                return true;
+            }
+        }
         return false;
     }
     
@@ -274,7 +456,15 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T firstNonNull(T... array) {
-        //TODO
+        if(array == null){
+            return null;
+        }
+        int i = 0;
+        while(i++<array.length){
+            if(array[i] != null){
+                return array[i];
+            }
+        }
         return null;
     }
     
@@ -288,8 +478,9 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T[] newArray(Class<?> componentType, int newSize) {
-        //TODO
-        return null;
+        //Array.newInstance(Class<?> componentType, int length)--->创建一个具有指定元素类型和长度的新数组，返回值为Object型
+        T[] newArray = (T[])Array.newInstance(componentType,newSize);
+        return newArray;
     }
     
     /**
@@ -302,7 +493,8 @@ public final class ArrayUtil {
     @SuppressWarnings("unchecked")
     public static <T> T[] newArray(int newSize) {
         //TODO
-        return null;
+        T[] newArray = (T[]) new Object[newSize];
+        return newArray;
     }
     
     /**
