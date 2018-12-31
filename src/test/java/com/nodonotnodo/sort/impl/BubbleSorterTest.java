@@ -6,7 +6,7 @@ public class BubbleSorterTest {
 
     public static void main(String[] args) {
 
-        BubbleSorterTest b = new BubbleSorterTest();
+        BubbleSorter b = new BubbleSorter();
         Element[] test = new Element[5];
         test[0] = new Element(23,0);
         test[1] = new Element(44,0);
@@ -15,6 +15,7 @@ public class BubbleSorterTest {
         test[4] = new Element(234,0);
         Print.print(test);
         System.out.println("排序后：");
+        b.sort(test);
         Print.print(test);
     }
 
