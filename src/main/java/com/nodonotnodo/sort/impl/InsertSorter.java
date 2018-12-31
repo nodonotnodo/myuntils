@@ -33,14 +33,12 @@ public class InsertSorter implements Sorter {
                 }
             }
             //进行插入
-            if(elements[insert].compareTo(elements[left])>=0){
+            if(elements[insert].compareTo(elements[left])>0){
                 left++;
             }
             Element insertDate = elements[insert];
             for(int i = insert; i>left; i--){
-                Element tmp = elements[i];
                 elements[i] = elements[i-1];
-                elements[i-1] = tmp;
             }
             elements[left] = insertDate;
             insert++;
