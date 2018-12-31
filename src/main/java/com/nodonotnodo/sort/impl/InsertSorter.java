@@ -17,7 +17,7 @@ public class InsertSorter implements Sorter {
         if(size == 1){//数组长度为1,直接返回
             return;
         }
-        int insert = 1;
+        int insert = 0;
         while(insert<size){
             //二分查找找到被插入的元素应该存放的位置
             int left = 0;
