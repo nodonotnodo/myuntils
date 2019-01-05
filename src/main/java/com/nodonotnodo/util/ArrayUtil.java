@@ -16,7 +16,7 @@ public final class ArrayUtil {
      * 数组中元素未找到的下标，值为-1
      */
     public static final int INDEX_NOT_FOUND = -1;
-    
+
     private ArrayUtil() {
     
     }
@@ -492,7 +492,6 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T[] newArray(int newSize) {
-        //TODO
         T[] newArray = (T[]) new Object[newSize];
         return newArray;
     }
@@ -504,8 +503,54 @@ public final class ArrayUtil {
      * @return 元素类型
      */
     public static Class<?> getComponentType(Object array) {
-        //TODO
-        return null;
+        if(array == null ){
+            return null;
+        }
+
+        //对象是一个byte(1个字节)型数组
+        if(array instanceof byte[]){
+            return byte.class;
+        }
+
+        //对象是一个short(2个字节)型数据
+        if(array instanceof short[]){
+            return short.class;
+        }
+
+        //对象是一个int(4个字节)型数组
+        if(array instanceof int[]){
+            return int.class;
+        }
+
+        //对象是一个long(8个字节)型数组
+        if(array instanceof long[]){
+            return long.class;
+        }
+        //对象是一个char(2个字节)型数组
+        if(array instanceof char[]) {
+            return char.class;
+        }
+
+
+        //对象是一个float(4个字节)型数组
+        if(array instanceof float[]){
+            return float.class;
+        }
+
+        //对象是一个double(8个字节)型数组
+        if(array instanceof double[]){
+            return double.class;
+        }
+
+        //对象是一个boolean(1个比特位)型数据
+        if(array instanceof boolean[]){
+            return boolean.class;
+        }
+
+        //对象是一个String型数组
+        else {
+            return String.class;
+        }
     }
     
     /**
@@ -515,8 +560,10 @@ public final class ArrayUtil {
      * @return 元素类型
      */
     public static Class<?> getComponentType(Class<?> arrayClass) {
-        //TODO
-        return null;
+        if(arrayClass == null){
+            return null;
+        }
+        return arrayClass.getClass();
     }
     
     /**
@@ -526,9 +573,9 @@ public final class ArrayUtil {
      * @param componentType 数组元素类型
      * @return 数组类型
      */
+    //Integer.class
     public static Class<?> getArrayType(Class<?> componentType) {
-        //TODO
-        return null;
+        return newArray(componentType,1).getClass();
     }
     
     /**
@@ -544,6 +591,14 @@ public final class ArrayUtil {
      */
     public static Object[] cast(Class<?> type, Object arrayObj) throws NullPointerException, IllegalArgumentException {
         //TODO
+        if(arrayObj == null){
+            throw new NullPointerException();
+        }
+        if(isArray(arrayObj)){
+            throw new IllegalArgumentException();
+        }
+//         if(getComponentType(arrayObj).getNam instanceof int)
+
         return null;
     }
     
@@ -558,8 +613,14 @@ public final class ArrayUtil {
      */
     @SafeVarargs
     public static <T> T[] append(T[] buffer, T... newElements) {
-        //TODO
-        return null;
+        T[] newBuffer = (T[]) new Object[buffer.length+newElements.length];
+        for(int i = 0; i<buffer.length; i++){
+            newBuffer[i] = buffer[i];
+        }
+        for(int i = buffer.length; i<newBuffer.length; i++){
+            newBuffer[i] = newElements[i-buffer.length];
+        }
+        return newBuffer;
     }
     
     /**
@@ -574,6 +635,70 @@ public final class ArrayUtil {
     @SafeVarargs
     public static <T> Object append(Object array, T... newElements) {
         //TODO
+        if(array == null){
+            return null;
+        }
+//        //对象是一个byte(1个字节)型数组
+//        if(array instanceof byte[]){
+//            byte[] oldBuffer = (byte[]) array;
+//            byte[] newBuffer = new byte[oldBuffer.length+newElements.length];
+//            for(int i = 0; i<oldBuffer.length; i++){
+//                newBuffer[i] = oldBuffer[i];
+//            }
+//            for(int i = oldBuffer.length; i<newBuffer.length; i++){
+//                //此处需要判断能否强转，但是T无法使用
+//                newBuffer[i] = (byte)newElements[i-oldBuffer.length];
+//            }
+//            return newBuffer;
+//        }
+//
+//        //对象是一个short(2个字节)型数据
+//        if(array instanceof short[]){
+//            short[] oldBuffer = (short[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//
+//        //对象是一个int(4个字节)型数组
+//        if(array instanceof int[]){
+//            int[] oldBuffer = (int[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//
+//        //对象是一个long(8个字节)型数组
+//        if(array instanceof long[]){
+//            long[] oldBuffer = (long[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//        //对象是一个char(2个字节)型数组
+//        if(array instanceof char[]) {
+//            char[] oldBuffer = (char[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//
+//
+//        //对象是一个float(4个字节)型数组
+//        if(array instanceof float[]){
+//            float[] oldBuffer = (float[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//
+//        //对象是一个double(8个字节)型数组
+//        if(array instanceof double[]){
+//            double[] oldBuffer = (double[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//
+//        //对象是一个boolean(1个比特位)型数据
+//        if(array instanceof boolean[]){
+//            boolean[] oldBuffer = (boolean[]) array;
+//            return append(oldBuffer,newElements);
+//        }
+//
+//        //对象是一个String型数组
+//        else {
+//            String[] oldBuffer = (String[]) array;
+//            return append(oldBuffer,newElements);
+//        }
         return null;
     }
     
@@ -592,7 +717,67 @@ public final class ArrayUtil {
     @SuppressWarnings("unchecked")
     public static <T> T[] insert(T[] buffer, int index, T... newElements) {
         //TODO
-        return null;
+        T[] newBuffer = null;
+        if(Math.abs(index)>buffer.length){
+            //index绝对值大于buffer长度且大于0
+            if(index>0){
+                newBuffer = (T[]) new Object[index+newElements.length];
+                for(int i=0; i<index; i++){
+                    if(i<buffer.length){
+                        newBuffer[i] = buffer[i];
+                    }else{
+                        newBuffer[i] = null;
+                    }
+                }
+                for(int i=index; i<newBuffer.length; i++){
+                    newBuffer[i] = newElements[i-index];
+                }
+            }else{            //index绝对值大于buffer长度且小于0
+                newBuffer = (T[]) new Object[newElements.length-index];
+                for(int i=0; i<newElements.length; i++){
+                    newBuffer[i] = newElements[i];
+                }
+                for(int i=newBuffer.length-1; i>newBuffer.length-1+index; i--){
+                    if(i>=newBuffer.length-buffer.length){
+                        newBuffer[i] = buffer[i-newBuffer.length+buffer.length];
+                    }else{
+                        newBuffer[i] = null;
+                    }
+                }
+            }
+        }else{
+            //index绝对值小于等于buffer长度且大于0
+            newBuffer = (T[])new Object[buffer.length+newElements.length];
+            if(index>0){
+                for(int i=0; i<index; i++){
+                    newBuffer[i] = buffer[i];
+                }
+                for(int i=index; i<index+newElements.length; i++){
+                    newBuffer[i] = newElements[i-index];
+                }
+                for(int i=index+newElements.length; i<newBuffer.length; i++){
+                    newBuffer[i] = buffer[i-newElements.length];
+                }
+            }else if(index<0){                //index绝对值小于buffer长度且小于0
+                for(int i=0; i<buffer.length+index; i++){
+                    newBuffer[i] = buffer[i];
+                }
+                for(int i=buffer.length+index; i<buffer.length+index+newElements.length; i++){
+                    newBuffer[i] = newElements[i-buffer.length-index];
+                }
+                for(int i= buffer.length+index+newElements.length; i<newBuffer.length; i++){
+                    newBuffer[i] = buffer[i-buffer.length-index-newElements.length+buffer.length+index];
+                }
+            }else{
+                for(int i=0; i<newElements.length; i++){
+                    newBuffer[i] = newElements[i];
+                }
+                for(int i=newElements.length; i<newBuffer.length; i++){
+                    newBuffer[i] = buffer[i-newElements.length];
+                }
+            }
+        }
+        return newBuffer;
     }
     
     /**
