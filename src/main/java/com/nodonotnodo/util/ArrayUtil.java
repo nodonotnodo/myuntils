@@ -597,8 +597,9 @@ public final class ArrayUtil {
         if(isArray(arrayObj)){
             throw new IllegalArgumentException();
         }
-//         if(getComponentType(arrayObj).getNam instanceof int)
-
+        if(getComponentType(arrayObj) == type){
+            Object[] objects = (Object[])arrayObj;
+        }
         return null;
     }
     
@@ -634,72 +635,18 @@ public final class ArrayUtil {
      */
     @SafeVarargs
     public static <T> Object append(Object array, T... newElements) {
-        //TODO
         if(array == null){
             return null;
         }
-//        //对象是一个byte(1个字节)型数组
-//        if(array instanceof byte[]){
-//            byte[] oldBuffer = (byte[]) array;
-//            byte[] newBuffer = new byte[oldBuffer.length+newElements.length];
-//            for(int i = 0; i<oldBuffer.length; i++){
-//                newBuffer[i] = oldBuffer[i];
-//            }
-//            for(int i = oldBuffer.length; i<newBuffer.length; i++){
-//                //此处需要判断能否强转，但是T无法使用
-//                newBuffer[i] = (byte)newElements[i-oldBuffer.length];
-//            }
-//            return newBuffer;
-//        }
-//
-//        //对象是一个short(2个字节)型数据
-//        if(array instanceof short[]){
-//            short[] oldBuffer = (short[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//
-//        //对象是一个int(4个字节)型数组
-//        if(array instanceof int[]){
-//            int[] oldBuffer = (int[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//
-//        //对象是一个long(8个字节)型数组
-//        if(array instanceof long[]){
-//            long[] oldBuffer = (long[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//        //对象是一个char(2个字节)型数组
-//        if(array instanceof char[]) {
-//            char[] oldBuffer = (char[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//
-//
-//        //对象是一个float(4个字节)型数组
-//        if(array instanceof float[]){
-//            float[] oldBuffer = (float[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//
-//        //对象是一个double(8个字节)型数组
-//        if(array instanceof double[]){
-//            double[] oldBuffer = (double[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//
-//        //对象是一个boolean(1个比特位)型数据
-//        if(array instanceof boolean[]){
-//            boolean[] oldBuffer = (boolean[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-//
-//        //对象是一个String型数组
-//        else {
-//            String[] oldBuffer = (String[]) array;
-//            return append(oldBuffer,newElements);
-//        }
-        return null;
+        Object[] objects = (Object[])array;
+        Object[] newObjects = new Object[((Object[]) array).length+newElements.length];
+        for(int i=0; i<objects.length; i++){
+            newObjects[i] = objects[i];
+        }
+        for(int i=0; i<newElements.length; i++){
+            newObjects[i+objects.length] = newElements[i];
+        }
+        return newObjects;
     }
     
     
@@ -793,7 +740,8 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> Object insert(Object array, int index, T... newElements) {
-        //TODO
+        Object[] objects = (Object[])array;
+        insert(objects,index,newElements);
         return null;
     }
     
@@ -809,7 +757,17 @@ public final class ArrayUtil {
      */
     public static <T> T[] resize(T[] buffer, int newSize, Class<?> componentType) {
         //TODO
-        return null;
+        T[] newBuffer = (T[]) new Object[newSize];
+        if(buffer.length <= newSize){
+            for(int i=0; i<buffer.length; i++){
+                newBuffer[i] = buffer[i];
+            }
+        }else{
+            for(int i=0; i<newSize; i++){
+                newBuffer[i] = buffer[i];
+            }
+        }
+        return newBuffer;
     }
     
     /**
@@ -822,8 +780,17 @@ public final class ArrayUtil {
      * @return 调整后的新数组
      */
     public static <T> T[] resize(T[] buffer, int newSize) {
-        //TODO
-        return null;
+        T[] newBuffer = (T[]) new Object[newSize];
+        if(buffer.length <= newSize){
+            for(int i=0; i<buffer.length; i++){
+                newBuffer[i] = buffer[i];
+            }
+        }else{
+            for(int i=0; i<newSize; i++){
+                newBuffer[i] = buffer[i];
+            }
+        }
+        return newBuffer;
     }
     
     /**
@@ -837,7 +804,26 @@ public final class ArrayUtil {
     @SafeVarargs
     public static <T> T[] addAll(T[]... arrays) {
         //TODO
-        return null;
+        if(arrays == null){
+            return null;
+        }
+        int newSize = 0;
+        for(T[] array: arrays){
+            if(array != null){
+                newSize+=array.length;
+            }
+        }
+        T[] newArray = (T[]) new Object[newSize];
+        int i = 0;
+        for(T[] array: arrays){
+            int j = 0;
+            if(array != null && array.length>0){
+                for(; j<array.length; j++,i++){
+                    newArray[i] = array[j];
+                }
+            }
+        }
+        return newArray;
     }
     
     

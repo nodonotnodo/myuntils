@@ -120,6 +120,16 @@ public class ArrayUtilTest {
         myPrint((Object[]) insert(ints2,-13,ints2_1));
     }
 
+    //将多个数组合并在一起<br>
+    //忽略null的数组
+    public static void test10(){
+        Integer[] ints1 = new Integer[]{1,2,3,4};
+        Integer[] ints2 = null;
+        Integer[] ints3 = new Integer[]{5,6};
+        myPrint(addAll(ints1,ints2,ints3));
+        myPrint(addAll(null));
+    }
+
     //打印数组
     public static void myPrint(Object[] array){
         if(array == null){
@@ -168,6 +178,10 @@ public class ArrayUtilTest {
         //将新元素插入到到已有数组中的某个位置
         //添加新元素会生成一个新的数组，不影响原数组
         //如果插入位置为为负数，从原数组从后向前计数，若大于原数组长度，则空白处用null填充
-        test9();
+        //test9();
+
+        //将多个数组合并在一起<br>
+        //忽略null的数组
+        test10();
     }
 }
