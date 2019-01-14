@@ -130,6 +130,48 @@ public class ArrayUtilTest {
         myPrint(addAll(null));
     }
 
+
+    /*
+     * 生成一个从0开始的数字列表<br>
+     *
+     * @param //excludedEnd 结束的数字（不包含）
+     * @return 数字列表
+     */
+    public static void rangeTest(){
+//        range(int excludedEnd)
+        myPrint(range(0));
+        myPrint(range(5));
+//        myPrint(range(257));
+//        myPrint(range(300));
+
+//        range(int begin, int last)
+        myPrint(range(1,1));
+        myPrint(range(1,5));
+        myPrint(range(1,-4));
+
+//        range(int begin, int last, int step)
+        myPrint(range(1,12,3));
+        myPrint(range(1,3,3));
+        myPrint(range(5,-5,3));
+        myPrint(range(5,-4,3));
+        myPrint(range(-1,-7,3));
+    }
+
+    /*
+     * 拆分byte数组为几个等份（最后一份可能小于len）
+     *
+     * @param array 数组
+     * @param len   每个小节的长度
+     * @return 拆分后的数组
+     */
+    public static void splitTest(){
+        byte[] bytes = new byte[30];
+        for(byte b=0; b<30; b++){
+            bytes[b] = b;
+        }
+        myPrint(split(bytes,5));
+    }
+
     //打印数组
     public static void myPrint(Object[] array){
         if(array == null){
@@ -143,6 +185,41 @@ public class ArrayUtilTest {
                 return;
             }
             System.out.print(array[i]+", ");
+        }
+    }
+
+    public static void myPrint(int[] array){
+        if(array == null){
+            System.out.println("输入的参数为空");
+            return;
+        }
+        System.out.print("数组内容为：");
+        for(int i = 0; i<array.length; i++){
+            if(i == array.length-1){
+                System.out.print(array[i]+"\n");
+                return;
+            }
+            if(0 == i%30){
+                System.out.println();
+            }
+            System.out.print(array[i]+", ");
+        }
+    }
+
+    public static void myPrint(byte[][] array){
+        if(array == null){
+            System.out.println("输入的参数为空");
+            return;
+        }
+        System.out.print("数组内容为：\n");
+        for(int i = 0; i<array.length; i++){
+            for(int j=0; j<array[0].length; j++){
+                if(j == array[0].length-1){
+                    System.out.print(array[i][j]+"\n");
+                }else{
+                    System.out.print(array[i][j]+" , ");
+                }
+            }
         }
     }
 
@@ -182,6 +259,23 @@ public class ArrayUtilTest {
 
         //将多个数组合并在一起<br>
         //忽略null的数组
-        test10();
+        //test10();
+
+        /*
+         * 生成一个从0开始的数字列表<br>
+         *
+         * @param excludedEnd 结束的数字（不包含）
+         * @return 数字列表
+         */
+        //rangeTest();
+
+        /*
+         * 拆分byte数组为几个等份（最后一份可能小于len）
+         *
+         * @param array 数组
+         * @param len   每个小节的长度
+         * @return 拆分后的数组
+         */
+        splitTest();
     }
 }

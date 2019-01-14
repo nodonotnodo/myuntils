@@ -663,7 +663,6 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T[] insert(T[] buffer, int index, T... newElements) {
-        //TODO
         T[] newBuffer = null;
         if(Math.abs(index)>buffer.length){
             //index绝对值大于buffer长度且大于0
@@ -726,7 +725,7 @@ public final class ArrayUtil {
         }
         return newBuffer;
     }
-    
+
     /**
      * 将新元素插入到到已有数组中的某个位置<br>
      * 添加新元素会生成一个新的数组，不影响原数组<br>
@@ -744,7 +743,7 @@ public final class ArrayUtil {
         insert(objects,index,newElements);
         return null;
     }
-    
+
     /**
      * 生成一个新的重新设置大小的数组<br>
      * 调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，缩小则截断
@@ -769,7 +768,7 @@ public final class ArrayUtil {
         }
         return newBuffer;
     }
-    
+
     /**
      * 生成一个新的重新设置大小的数组<br>
      * 新数组的类型为原数组的类型，调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，缩小则截断
@@ -792,7 +791,7 @@ public final class ArrayUtil {
         }
         return newBuffer;
     }
-    
+
     /**
      * 将多个数组合并在一起<br>
      * 忽略null的数组
@@ -803,7 +802,6 @@ public final class ArrayUtil {
      */
     @SafeVarargs
     public static <T> T[] addAll(T[]... arrays) {
-        //TODO
         if(arrays == null){
             return null;
         }
@@ -825,8 +823,8 @@ public final class ArrayUtil {
         }
         return newArray;
     }
-    
-    
+
+
     /**
      * 生成一个从0开始的数字列表<br>
      *
@@ -834,10 +832,16 @@ public final class ArrayUtil {
      * @return 数字列表
      */
     public static int[] range(int excludedEnd) {
-        //TODO
-        return null;
+        if(excludedEnd <= 0){
+            return null;
+        }
+        int[] result = new int[excludedEnd];
+        for(int i=0; i<result.length; i++){
+            result[i] = i;
+        }
+        return result;
     }
-    
+
     /**
      * 生成一个数字列表<br>
      * 自动判定正序反序
@@ -847,10 +851,22 @@ public final class ArrayUtil {
      * @return 数字列表
      */
     public static int[] range(int includedStart, int excludedEnd) {
-        //TODO
-        return null;
+        if(includedStart == excludedEnd){
+            return null;
+        }
+        int[] result = new int[includedStart-excludedEnd>0 ? (includedStart-excludedEnd):(excludedEnd-includedStart)];
+        if(includedStart > excludedEnd){
+            for(int i=0; i<result.length; i++){
+                result[i] = includedStart - i;
+            }
+        }else{
+            for(int i=0; i<result.length; i++){
+                result[i] = includedStart + i;
+            }
+        }
+        return result;
     }
-    
+
     /**
      * 生成一个数字列表<br>
      * 自动判定正序反序
@@ -861,8 +877,29 @@ public final class ArrayUtil {
      * @return 数字列表
      */
     public static int[] range(int includedStart, int excludedEnd, int step) {
-        //TODO
-        return null;
+        if(includedStart == excludedEnd){
+            return null;
+        }
+        int size = includedStart-excludedEnd>0 ? (includedStart-excludedEnd):(excludedEnd-includedStart);
+        int[] result = new int[(size%step == 0)?(size/step):(size/step+1)];
+        if(includedStart > excludedEnd){
+            for(int i=0; i<result.length; i++){
+                if(0 == i){
+                    result[i] = includedStart;
+                }else{
+                    result[i] = includedStart - (i*step);
+                }
+            }
+        }else{
+            for(int i=0; i<result.length; i++){
+                if(0 == i){
+                    result[i] = includedStart + i;
+                }else{
+                    result[i] = includedStart + (i*step);
+                }
+            }
+        }
+        return result;
     }
     
     /**
@@ -874,7 +911,24 @@ public final class ArrayUtil {
      */
     public static byte[][] split(byte[] array, int len) {
         //TODO
-        return null;
+        if(array == null || len == 0){
+            return null;
+        }
+        int size = 0==array.length%len ? (array.length/len):(array.length/len+1);
+        byte[][] result = new byte[size][len];
+        for(int i=0; i<array.length; i++){
+            for(int j=0; j<size; j++){
+                for(int k=0; k<len; k++){
+                    if(i<array.length){
+                        result[j][k] = array[i];
+                    }else{
+                        result[j][k] = 0;
+                    }
+                    i++;
+                }
+            }
+        }
+        return result;
     }
     
     
