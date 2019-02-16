@@ -1,10 +1,11 @@
 package com.nodonotnodo.util;
 
+import com.nodonotnodo.sort.Element;
+import com.nodonotnodo.sort.impl.QuickSorter;
+
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Author: nodonotnodo
@@ -910,7 +911,6 @@ public final class ArrayUtil {
      * @return 拆分后的数组
      */
     public static byte[][] split(byte[] array, int len) {
-        //TODO
         if(array == null || len == 0){
             return null;
         }
@@ -948,8 +948,23 @@ public final class ArrayUtil {
      * @return Map
      */
     public static <K, V> Map<K, V> zip(K[] keys, V[] values, boolean isOrder) {
-        //TODO
-        return null;
+        if(keys == null || values == null){
+            return null;
+        }
+        int size = keys.length>values.length ? (values.length) : (keys.length);
+        if(isOrder){//有序
+            Map<K,V> result = new TreeMap<>();
+            for(int i=0; i<size; i++){
+                result.put(keys[i], values[i]);
+            }
+            return result;
+        }else{//无序
+            Map<K,V> result = new HashMap<>();
+            for(int i=0; i<size; i++){
+                result.put(keys[i], values[i]);
+            }
+            return result;
+        }
     }
     
     /**
@@ -967,8 +982,15 @@ public final class ArrayUtil {
      * @return Map
      */
     public static <K, V> Map<K, V> zip(K[] keys, V[] values) {
-        //TODO
-        return null;
+        if(keys == null || values == null){
+            return null;
+        }
+        Map<K,V> result = new HashMap<>();
+        int size = keys.length>values.length ? (values.length) : (keys.length);
+        for(int i=0; i<size; i++){
+            result.put(keys[i],values[i]);
+        }
+        return result;
     }
     
     
@@ -981,7 +1003,14 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static <T> int indexOf(T[] array, Object value) {
-        //TODO
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value.equals(array[i])){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -993,7 +1022,14 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOfIgnoreCase(CharSequence[] array, CharSequence value) {
-        //TODO
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value.toString().equalsIgnoreCase(array[i].toString())){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1006,7 +1042,14 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static <T> int lastIndexOf(T[] array, Object value) {
-        //TODO
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(array[array.length-1-i].equals(value)){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1019,7 +1062,22 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static <T> boolean contains(T[] array, T value) {
-        //TODO
+        if(array == null || value == null){
+            return false;
+        }
+        if(value instanceof String){
+            for(int i=0; i<array.length; i++){
+                if(value.equals(array[i])){
+                    return true;
+                }
+            }
+        }else{
+            for(int i=0; i<array.length; i++){
+                if(value == array[i]){
+                    return true;
+                }
+            }
+        }
         return false;
     }
     
@@ -1031,7 +1089,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean containsIgnoreCase(CharSequence[] array, CharSequence value) {
-        //TODO
+        if(array == null || value == null){
+            return false;
+        }
+        String s = value.toString();
+        for(int i=0; i<array.length; i++){
+            if(s.equalsIgnoreCase(array[i].toString())){
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1043,7 +1109,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(long[] array, long value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1055,7 +1129,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(long[] array, long value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1067,7 +1149,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(long[] array, long value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1079,7 +1169,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(int[] array, int value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1091,7 +1189,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(int[] array, int value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1103,7 +1209,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(int[] array, int value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (int anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1115,7 +1229,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(short[] array, short value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1127,7 +1249,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(short[] array, short value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1139,7 +1269,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(short[] array, short value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (short anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1151,7 +1289,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(char[] array, char value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1163,7 +1309,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(char[] array, char value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1175,7 +1329,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(char[] array, char value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (char anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1187,7 +1349,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(byte[] array, byte value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1199,7 +1369,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(byte[] array, byte value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1211,7 +1389,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(byte[] array, byte value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (byte anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1223,7 +1409,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(double[] array, double value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     /**
@@ -1234,7 +1428,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(double[] array, double value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1246,7 +1448,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(double[] array, double value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (double anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1258,7 +1468,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(float[] array, float value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1270,7 +1488,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(float[] array, float value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1282,7 +1508,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(float[] array, float value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (float anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1294,7 +1528,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int indexOf(boolean[] array, boolean value) {
-        //TODO
+        //与上面的indexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[i]){
+                return i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1306,7 +1548,15 @@ public final class ArrayUtil {
      * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
      */
     public static int lastIndexOf(boolean[] array, boolean value) {
-        //TODO
+        //与上面的lastIndexOf实现思路一致，所以不再测试
+        if(array == null){
+            return INDEX_NOT_FOUND;
+        }
+        for(int i=0; i<array.length; i++){
+            if(value == array[array.length-1-i]){
+                return array.length-1-i;
+            }
+        }
         return INDEX_NOT_FOUND;
     }
     
@@ -1318,7 +1568,15 @@ public final class ArrayUtil {
      * @return 是否包含
      */
     public static boolean contains(boolean[] array, boolean value) {
-        //TODO
+        //与上面的contains实现思路一致，所以不再测试
+        if(array == null){
+            return false;
+        }
+        for (boolean anArray : array) {
+            if (value == anArray) {
+                return true;
+            }
+        }
         return false;
     }
     
@@ -1331,8 +1589,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Integer[] wrap(int... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Integer[] result = new Integer[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1342,8 +1606,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static int[] unWrap(Integer... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        int[] result = new int[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1353,8 +1623,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Long[] wrap(long... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Long[] result = new Long[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1364,7 +1640,13 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static long[] unWrap(Long... values) {
-        //TODO
+        if(values == null){
+            return null;
+        }
+        long[] result = new long[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
         return null;
     }
     
@@ -1375,8 +1657,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Character[] wrap(char... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Character[] result = new Character[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1386,8 +1674,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static char[] unWrap(Character... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        char[] result = new char[values.length];
+        for(int i=0; i<values.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1397,8 +1691,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Byte[] wrap(byte... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Byte[] result = new Byte[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1408,8 +1708,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static byte[] unWrap(Byte... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        byte[] result = new byte[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1419,8 +1725,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Short[] wrap(short... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Short[] result = new Short[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1430,8 +1742,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static short[] unWrap(Short... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        short[] result = new short[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1441,8 +1759,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Float[] wrap(float... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Float[] result = new Float[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1452,8 +1776,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static float[] unWrap(Float... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        float[] result = new float[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1463,8 +1793,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Double[] wrap(double... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Double[] result = new Double[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1474,8 +1810,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static double[] unWrap(Double... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        double[] result = new double[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1485,8 +1827,14 @@ public final class ArrayUtil {
      * @return 包装类型数组
      */
     public static Boolean[] wrap(boolean... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        Boolean[] result = new Boolean[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**
@@ -1496,8 +1844,14 @@ public final class ArrayUtil {
      * @return 原始类型数组
      */
     public static boolean[] unWrap(Boolean... values) {
-        //TODO
-        return null;
+        if(values == null){
+            return null;
+        }
+        boolean[] result = new boolean[values.length];
+        for(int i=0; i<result.length; i++){
+            result[i] = values[i];
+        }
+        return result;
     }
     
     /**

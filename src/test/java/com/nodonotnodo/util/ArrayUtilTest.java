@@ -1,5 +1,8 @@
 package com.nodonotnodo.util;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import static com.nodonotnodo.util.ArrayUtil.*;
 
 public class ArrayUtilTest {
@@ -172,6 +175,172 @@ public class ArrayUtilTest {
         myPrint(split(bytes,5));
     }
 
+    /*
+     * 映射键值（参考Python的zip()函数）<br>
+     * 例如：<br>
+     * keys = [a,b,c,d]<br>
+     * values = [1,2,3,4]<br>
+     * 则得到的Map是 {a=1, b=2, c=3, d=4}<br>
+     * 如果两个数组长度不同，则只对应最短部分
+     *
+     * @param <K>     Key类型
+     * @param <V>     Value类型
+     * @param keys    键列表
+     * @param values  值列表
+     * @param isOrder 是否有序
+     * @return Map
+     */
+    public static void zipTest(){
+        String[] strings = new String[]{"第一个","第二个","第三个"};
+        Integer[] integers = new Integer[]{1,2,3,4,5};
+        Map<String, Integer> result1 = zip(strings, integers,false);
+        myPrint(result1);
+        Map<String, Integer> result2 = zip(strings, integers,false);
+        myPrint(result2);
+        Integer[] integers1 = null;
+        Map<String, Integer> result3 = zip(strings, integers1,false);
+        myPrint(result3);
+        Map<String, Integer> result4 = zip(strings, integers1,false);
+        myPrint(result4);
+        Integer[] integers2 = new Integer[]{};
+        Map<String, Integer> result5 = zip(strings, integers2,false);
+        myPrint(result5);
+        Map<String, Integer> result6 = zip(strings, integers2,false);
+        myPrint(result6);
+    }
+
+    /*
+     * 返回数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @param <T>   数组类型
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     */
+    public static void indexOfTest(){
+        String[] strings1 = null;
+        System.out.println(indexOf(strings1,"a"));
+        String[] strings2 = new String[]{"A","B","C","D"};
+        System.out.println(indexOf(strings2,"A"));
+        System.out.println(indexOf(strings2,"D"));
+        System.out.println(indexOf(strings2,"C"));
+        System.out.println(indexOf(strings2,"a"));
+    }
+
+    /*
+     * 返回数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @param <T>   数组类型
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     */
+    //indexOfTest();
+
+    /*
+     * 返回数组中指定元素所在位置，忽略大小写，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     */
+    public static void indexOfIgnoreCaseText(){
+        CharSequence[] charSequences1 = null;
+        System.out.println(indexOfIgnoreCase(charSequences1,"c"));
+        CharSequence[] charSequences2 = new CharSequence[]{"A","B","C","D"};
+        System.out.println(indexOfIgnoreCase(charSequences2,"A"));
+        System.out.println(indexOfIgnoreCase(charSequences2,"D"));
+        System.out.println(indexOfIgnoreCase(charSequences2,"C"));
+        System.out.println(indexOfIgnoreCase(charSequences2,"a"));
+        System.out.println(indexOfIgnoreCase(charSequences2,"v"));
+    }
+
+    /*
+     * 返回数组中指定元素所在位置，忽略大小写，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     */
+    //indexOfIgnoreCaseText();
+
+    /*
+     * 返回数组中指定元素所在最后的位置，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @param <T>   数组类型
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     */
+    public static void lastIndexOfTest(){
+        String[] strings1 = null;
+        System.out.println(indexOf(strings1,"a"));
+        String[] strings2 = new String[]{"A","B","C","A","F","C","D"};
+        System.out.println(lastIndexOf(strings2,"A"));
+        System.out.println(lastIndexOf(strings2,"D"));
+        System.out.println(lastIndexOf(strings2,"C"));
+        System.out.println(lastIndexOf(strings2,"a"));
+    }
+
+    /*
+     * 数组中是否包含元素
+     *
+     * @param <T>   数组元素类型
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 是否包含
+     */
+    public static void containsTest(){
+        Integer[] integers1 = null;
+        System.out.println(contains(integers1,3));
+        Integer[] integers2 = new Integer[]{1,2,3,4,5,6};
+        System.out.println(contains(integers2,null));
+        System.out.println(contains(integers2,1));
+        System.out.println(contains(integers2,6));
+        System.out.println(contains(integers2,3));
+        System.out.println(contains(integers2,8));
+        String[] strings = new String[]{"A","B","C","D","E"};
+        System.out.println(contains(strings,null));
+        System.out.println(contains(strings,"A"));
+        System.out.println(contains(strings,"E"));
+        System.out.println(contains(strings,"C"));
+        System.out.println(contains(strings,"a"));
+    }
+
+    /*
+     * 数组中是否包含元素，忽略大小写
+     *
+     * @param array 数组
+     * @param value 被检查的元素
+     * @return 是否包含
+     */
+    public static void containsIgnoreCaseTest(){
+        CharSequence[] charSequences1 = null;
+        System.out.println(containsIgnoreCase(charSequences1,"A"));
+        CharSequence[] charSequences2 = new CharSequence[]{"Hello","new","day"};
+        System.out.println(containsIgnoreCase(charSequences2,null));
+        System.out.println(containsIgnoreCase(charSequences2,"HELLO"));
+        System.out.println(containsIgnoreCase(charSequences2,"heLLO"));
+        System.out.println(containsIgnoreCase(charSequences2,"DaY"));
+        System.out.println(containsIgnoreCase(charSequences2,"DaY1"));
+    }
+
+    //打印Map
+    public static <K,V>void myPrint(Map<K,V> map){
+        if(map == null){
+            System.out.println("参数为空");
+            return;
+        }
+        if(map.size() == 0){
+            System.out.println("map中无内容");
+            return;
+        }
+        System.out.println("结果为：");
+        for(Map.Entry<K,V> entry : map.entrySet()){
+            System.out.println("key："+entry.getKey()+"\t\tvalue:"+entry.getValue());
+        }
+    }
+
     //打印数组
     public static void myPrint(Object[] array){
         if(array == null){
@@ -276,6 +445,71 @@ public class ArrayUtilTest {
          * @param len   每个小节的长度
          * @return 拆分后的数组
          */
-        splitTest();
+        //splitTest();
+
+        /*
+         * 映射键值（参考Python的zip()函数）<br>
+         * 例如：<br>
+         * keys = [a,b,c,d]<br>
+         * values = [1,2,3,4]<br>
+         * 则得到的Map是 {a=1, b=2, c=3, d=4}<br>
+         * 如果两个数组长度不同，则只对应最短部分
+         *
+         * @param <K>     Key类型
+         * @param <V>     Value类型
+         * @param keys    键列表
+         * @param values  值列表
+         * @param isOrder 是否有序
+         * @return Map
+         */
+        //zipTest();
+
+        /*
+         * 返回数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+         *
+         * @param <T>   数组类型
+         * @param array 数组
+         * @param value 被检查的元素
+         * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+         */
+        //indexOfTest();
+
+        /*
+         * 返回数组中指定元素所在位置，忽略大小写，未找到返回{@link #INDEX_NOT_FOUND}
+         *
+         * @param array 数组
+         * @param value 被检查的元素
+         * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+         */
+        //indexOfIgnoreCaseText();
+
+        /*
+         * 返回数组中指定元素所在最后的位置，未找到返回{@link #INDEX_NOT_FOUND}
+         *
+         * @param <T>   数组类型
+         * @param array 数组
+         * @param value 被检查的元素
+         * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+         */
+        //lastIndexOfTest();
+
+        /*
+         * 数组中是否包含元素
+         *
+         * @param <T>   数组元素类型
+         * @param array 数组
+         * @param value 被检查的元素
+         * @return 是否包含
+         */
+        //containsTest();
+
+        /*
+         * 数组中是否包含元素，忽略大小写
+         *
+         * @param array 数组
+         * @param value 被检查的元素
+         * @return 是否包含
+         */
+        containsIgnoreCaseTest();
     }
 }
