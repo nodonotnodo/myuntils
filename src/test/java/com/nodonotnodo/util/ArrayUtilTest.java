@@ -325,6 +325,26 @@ public class ArrayUtilTest {
         System.out.println(containsIgnoreCase(charSequences2,"DaY1"));
     }
 
+    /*
+     * 获取数组对象中指定index的值，支持负数，例如-1表示倒数第一个值
+     *
+     * @param <T>   数组元素类型
+     * @param array 数组对象
+     * @param index 下标，支持负数
+     * @return 值
+     */
+    public static void getTest(){
+        String[] strings1 = null;
+        System.out.println(get(strings1,3)+"");
+        Character[] characters = new Character[]{'s','r','q','g','v','b','x'};
+        System.out.println(get(characters,0)+"");
+        System.out.println(get(characters,6)+"");
+        System.out.println(get(characters,-1)+"");
+        System.out.println(get(characters,-7)+"");
+        System.out.println(get(characters,8)+"");
+        System.out.println(get(characters,-8)+"");
+    }
+
     //打印Map
     public static <K,V>void myPrint(Map<K,V> map){
         if(map == null){
@@ -510,6 +530,16 @@ public class ArrayUtilTest {
          * @param value 被检查的元素
          * @return 是否包含
          */
-        containsIgnoreCaseTest();
+        //containsIgnoreCaseTest();
+
+        /*
+         * 获取数组对象中指定index的值，支持负数，例如-1表示倒数第一个值
+         *
+         * @param <T>   数组元素类型
+         * @param array 数组对象
+         * @param index 下标，支持负数
+         * @return 值
+         */
+        getTest();
     }
 }
