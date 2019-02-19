@@ -1886,7 +1886,6 @@ public final class ArrayUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T get(Object array, int index) {
-        //TODO
         T[] arr = (T[])array;
         if(array == null || Math.abs(index) > arr.length){
             return null;
