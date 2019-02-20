@@ -130,7 +130,7 @@ public class ArrayUtilTest {
         Integer[] ints2 = null;
         Integer[] ints3 = new Integer[]{5,6};
         myPrint(addAll(ints1,ints2,ints3));
-        myPrint(addAll(null));
+//        myPrint(addAll(null));
     }
 
 
@@ -345,6 +345,44 @@ public class ArrayUtilTest {
         System.out.println(get(characters,-8)+"");
     }
 
+    /*
+     * 获取数组中指定多个下标元素值，组成新数组
+     *
+     * @param <T>     数组元素类型
+     * @param array   数组
+     * @param indexes 下标列表
+     * @return 结果
+     */
+    public static void getAnyTest(){
+        String[] strings1 = null;
+        myPrint1(getAny(strings1,1,2,3));
+        String[] strings2 = new String[]{"Hello","New","Day","c","ds","java"};
+        myPrint1(getAny(strings2));
+        myPrint1(getAny(strings2,1,2,3));
+        myPrint1(getAny(strings2,1,2,3,10));
+    }
+
+    /*
+     * 获取子数组
+     *
+     * @param array 数组
+     * @param start 开始位置（包括）
+     * @param end   结束位置（不包括）
+     * @return 新的数组
+     */
+    public static void subTest(){
+        Integer[] integers1 = null;
+        myPrint(sub(integers1,0,1));
+        Integer[] integers2 = new Integer[]{1,2,3,4,5,6,7};
+        myPrint(sub(integers2,-1,3));
+        myPrint(sub(integers2,0,9));
+        myPrint(sub(integers2,3,3));
+        myPrint(sub(integers2,2,5));
+
+        myPrint(sub(integers2,2,6,2));
+        myPrint(sub(integers2,2,6,9));
+    }
+
     //打印Map
     public static <K,V>void myPrint(Map<K,V> map){
         if(map == null){
@@ -408,6 +446,21 @@ public class ArrayUtilTest {
                 }else{
                     System.out.print(array[i][j]+" , ");
                 }
+            }
+        }
+    }
+
+    public static void myPrint1(String[] array){
+        if(array == null){
+            System.out.println("输入参数为空");
+            return;
+        }
+        System.out.println("数组内容为:");
+        for(int i = 0; i < array.length; i++){
+            if(i == array.length-1){
+                System.out.println(array[i]);
+            }else{
+                System.out.print(array[i] + ",  ");
             }
         }
     }
@@ -540,6 +593,26 @@ public class ArrayUtilTest {
          * @param index 下标，支持负数
          * @return 值
          */
-        getTest();
+        //getTest();
+
+        /*
+         * 获取数组中指定多个下标元素值，组成新数组
+         *
+         * @param <T>     数组元素类型
+         * @param array   数组
+         * @param indexes 下标列表
+         * @return 结果
+         */
+        //getAnyTest();
+
+        /*
+         * 获取子数组
+         *
+         * @param array 数组
+         * @param start 开始位置（包括）
+         * @param end   结束位置（不包括）
+         * @return 新的数组
+         */
+        subTest();
     }
 }

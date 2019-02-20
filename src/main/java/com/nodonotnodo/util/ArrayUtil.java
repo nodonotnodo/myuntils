@@ -1906,8 +1906,18 @@ public final class ArrayUtil {
      * @return 结果
      */
     public static <T> T[] getAny(Object array, int... indexes) {
-        //TODO
-        return null;
+        if(array == null || indexes.length == 0){
+            return null;
+        }
+        T[] arr = (T[]) array;
+        T[] result = arr;
+        for(int i = 0; i < indexes.length; i++){
+            if(indexes[i] > arr.length){
+                return null;
+            }
+            result[i] = arr[indexes[i]];
+        }
+        return Arrays.copyOfRange(arr,0,indexes.length);
     }
     
     /**
@@ -1919,8 +1929,18 @@ public final class ArrayUtil {
      * @return 新的数组
      */
     public static Object[] sub(Object array, int start, int end) {
-        //TODO
-        return null;
+        if(array == null || start >= end){
+            return null;
+        }
+        Object[] arr = (Object[]) array;
+        if(start < 0 || start >= arr.length || end > arr.length + 1){
+            return null;
+        }
+        Object[] result = new Object[end-start];
+        for(int i = 0; i < result.length; i++){
+            result[i] = arr[i+start];
+        }
+        return result;
     }
     
     /**
@@ -1933,8 +1953,18 @@ public final class ArrayUtil {
      * @return 新的数组
      */
     public static Object[] sub(Object array, int start, int end, int step) {
-        //TODO
-        return null;
+        if(array == null || start >= end){
+            return null;
+        }
+        Object[] arr = (Object[]) array;
+        if(start < 0 || start >= arr.length || end > arr.length + 1){
+            return null;
+        }
+        Object[] result = new Object[(end-start)/step];
+        for(int i=0; i<result.length; i++){
+            result[i] = arr[start + (step * i)];
+        }
+        return result;
     }
     
     /**
